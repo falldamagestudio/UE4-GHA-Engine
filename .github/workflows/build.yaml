@@ -1,0 +1,50 @@
+
+name: Build
+
+on:
+  push:
+    # Always build when there are new commits to master
+    branches:
+      - master
+
+    # Always build release-tags
+    tags:
+      - 'releases/**'
+
+jobs:
+  start-agents:
+    name: "Start build agents"
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl ${{ secrets.WATCHDOG_TRIGGER_URL }}
+
+  build-win64:
+    name: "Build for Win64"
+
+    runs-on: engine_build_agent
+
+    timeout-minutes: 120
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          clean: false
+
+      # - name: Setup credentials for cloud storage
+      #   run: $env:LONGTAIL_GCLOUD_CREDENTIALS | Out-File FetchPrebuiltUE4\application-default-credentials.json -Encoding ASCII
+      #   env:
+      #     LONGTAIL_GCLOUD_CREDENTIALS: ${{ secrets.LONGTAIL_GCLOUD_CREDENTIALS }}
+
+      - name: Build Engine (Win64)
+        run: .\Scripts\Windows\BuildEngine.bat
+
+      # - name: Upload engine as Engine-${{ github.sha }}
+      #   run: .\UploadEngine.bat ${{ github.sha }}
+
+  stop-agents:
+    needs: [ build-win64 ]
+    name: "Stop build agents"
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl ${{ secrets.WATCHDOG_TRIGGER_URL }}
