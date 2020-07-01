@@ -39,7 +39,7 @@ jobs:
       #     LONGTAIL_GCLOUD_CREDENTIALS: ${{ secrets.LONGTAIL_GCLOUD_CREDENTIALS }}
 
       - name: Build Engine (Win64)
-        run: .\Scripts\Windows\BuildEngine.bat
+        run: .\Scripts\Windows\BuildEngine.ps1
 
       # - name: Upload engine as Engine-${{ github.sha }}
       #   run: .\UploadEngine.bat ${{ github.sha }}
