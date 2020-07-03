@@ -33,8 +33,8 @@ jobs:
           submodules: 'recursive'
           token: ${{ secrets.ENGINE_GITHUB_PAT }}
 
-      - name: Run post-checkout repository setup
-        run: .\UE4\Setup.bat --force
+      - name: Fetch git repo dependencies
+        run: cd UE4; .\Engine\Binaries\DotNET\GitDependencies.exe --force
 
       # - name: Setup credentials for cloud storage
       #   run: $env:LONGTAIL_GCLOUD_CREDENTIALS | Out-File FetchPrebuiltUE4\application-default-credentials.json -Encoding ASCII
