@@ -23,7 +23,7 @@ jobs:
 
     runs-on: engine_build_agent
 
-    timeout-minutes: 120
+    timeout-minutes: 240
 
     steps:
       - name: Check out repository
