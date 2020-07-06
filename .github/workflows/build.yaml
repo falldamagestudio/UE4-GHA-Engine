@@ -48,8 +48,8 @@ jobs:
       - name: Fetch git repo dependencies
         run: cd UE4; .\Engine\Binaries\DotNET\GitDependencies.exe --force
 
-#      - name: Build Engine (Win64)
-#        run: .\Scripts\Windows\BuildEngine.ps1
+      - name: Build Engine (Win64)
+        run: .\Scripts\Windows\BuildEngine.ps1
 
       - name: Setup credentials for engine cloud storage
         run: $env:GCP_ENGINE_BUILD_AGENT_CREDENTIALS | Out-File UploadUE4\service-account-credentials.json -Encoding ASCII
