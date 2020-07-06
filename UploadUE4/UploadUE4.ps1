@@ -16,9 +16,9 @@ try {
 
 	$CredentialsFile = Join-Path -Path $Here -ChildPath "service-account-credentials.json"
 
-	$UE4Location = Join-Path -Path $Here -ChildPath $LocalConfiguration.ue4_location | Resolve-Path
+	$UE4Location = "\\?\$(Join-Path -Path $Here -ChildPath $LocalConfiguration.ue4_location | Resolve-Path)"
 
-	$EngineBuildLocation = Join-Path -Path $UE4Location -ChildPath "LocalBuilds\Engine\Windows"
+	$EngineBuildLocation = "${UE4Location}\LocalBuilds\Engine\Windows"
 
 	$VersionIndexURI = "$($OnlineConfiguration.version_index_uri)/engine-${BuildId}-win64.lvi"
 
