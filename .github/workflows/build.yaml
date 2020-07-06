@@ -48,18 +48,13 @@ jobs:
       - name: Fetch git repo dependencies
         run: cd UE4; .\Engine\Binaries\DotNET\GitDependencies.exe --force
 
-      # - name: Setup credentials for cloud storage
-      #   run: $env:LONGTAIL_GCLOUD_CREDENTIALS | Out-File FetchPrebuiltUE4\application-default-credentials.json -Encoding ASCII
-      #   env:
-      #     LONGTAIL_GCLOUD_CREDENTIALS: ${{ secrets.LONGTAIL_GCLOUD_CREDENTIALS }}
-
       - name: Build Engine (Win64)
         run: .\Scripts\Windows\BuildEngine.ps1
 
-      - name: Upload engine as Engine-${{ github.sha }}
+      - name: Upload engine as engine-${{ github.sha }}-win64
         run: |
           if (!(Test-Path -Path ".\longtail-win32-x64.exe")) { Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/DanEngelbrecht/golongtail/releases/download/v0.0.36/longtail-win32-x64.exe" -OutFile "longtail-win32-x64.exe"  }
-          & .\longtail-win32-x64.exe upsync "--source-path=UE4/LocalBuilds/Engine/Windows" "--target-path=gs://${{ secrets.ENGINE_GCS_BUCKET }}/store/index/Engine-$${{ github.sha }}.lvi" "--storage-uri=gs://${{ secrets.ENGINE_GCS_BUCKET }}/store"
+          & .\longtail-win32-x64.exe upsync "--source-path=UE4/LocalBuilds/Engine/Windows" "--target-path=gs://${{ secrets.ENGINE_GCS_BUCKET }}/store/index/engine-$${{ github.sha }}-win64.lvi" "--storage-uri=gs://${{ secrets.ENGINE_GCS_BUCKET }}/store"
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.ENGINE_GCS_BUCKET_CREDENTIALS }}
 
