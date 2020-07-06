@@ -1,1 +1,4 @@
-/longtail*
+
+# Ignore service account credentials file
+
+/UploadUE4/service-account-credentials.json
