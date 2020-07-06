@@ -61,7 +61,7 @@ jobs:
           if (!(Test-Path -Path ".\longtail-win32-x64.exe")) { Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/DanEngelbrecht/golongtail/releases/download/v0.0.36/longtail-win32-x64.exe" -OutFile "longtail-win32-x64.exe"  }
           & .\longtail-win32-x64.exe upsync "--source-path=UE4/LocalBuilds/Engine/Windows" "--target-path=gs://${{ secrets.ENGINE_GCS_BUCKET }}/store/index/Engine-$${{ github.sha }}.lvi" "--storage-uri=gs://${{ secrets.ENGINE_GCS_BUCKET }}/store"
         env:
-          GOOGLE_APPLICATION_CREDENTIALS = ${{ secrets.ENGINE_GCS_BUCKET_CREDENTIALS }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.ENGINE_GCS_BUCKET_CREDENTIALS }}
 
   stop-agents:
     needs: [ build-win64 ]
