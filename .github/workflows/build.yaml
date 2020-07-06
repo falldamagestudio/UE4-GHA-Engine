@@ -57,7 +57,7 @@ jobs:
           GCP_ENGINE_BUILD_AGENT_CREDENTIALS: ${{ secrets.GCP_ENGINE_BUILD_AGENT_CREDENTIALS }}
 
       - name: Upload engine as engine-${{ github.sha }}-win64
-        run: .\UploadUE4\UploadUE4.bat -BuildId ${{ github.sha }}
+        run: .\UploadUE4\UploadUE4.ps1 -BuildId ${{ github.sha }}
 
   stop-agents:
     needs: [ build-win64 ]
