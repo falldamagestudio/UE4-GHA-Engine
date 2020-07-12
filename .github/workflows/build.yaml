@@ -59,6 +59,13 @@ jobs:
       - name: Upload engine as engine-${{ github.sha }}-win64
         run: .\UploadUE4\UploadUE4.ps1 -BuildId ${{ github.sha }}
 
+      - name: Upload build logs
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: automationtool-logs
+          path: UE4/Engine/Programs/AutomationTool/Saved/Logs
+
   stop-agents:
     needs: [ build-win64 ]
     name: "Stop build agents"
