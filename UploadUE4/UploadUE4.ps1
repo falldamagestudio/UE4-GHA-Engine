@@ -1,4 +1,5 @@
 param (
+	[Parameter(Mandatory)] [string] $CloudStorageBucket,
 	[Parameter(Mandatory)] [string] $BuildId
 )
 
@@ -20,9 +21,10 @@ try {
 
 	$EngineBuildLocation = "${UE4Location}\LocalBuilds\Engine\Windows"
 
-	$VersionIndexURI = "$($OnlineConfiguration.version_index_uri)/engine-${BuildId}-win64.lvi"
+	$VersionIndexURI = "gs://${CloudStorageBucket}/store/index/engine-${BuildId}-win64.lvi"
+	$StorageURI = "gs://${CloudStorageBucket}/store"
 
-	UpsyncEngineBuild -EngineBuildLocation $EngineBuildLocation -VersionIndexURI $VersionIndexURI -StorageURI $OnlineConfiguration.storage_uri -CredentialsFile $CredentialsFile
+	UpsyncEngineBuild -EngineBuildLocation $EngineBuildLocation -VersionIndexURI $VersionIndexURI -StorageURI $StorageURI -CredentialsFile $CredentialsFile
 
 	Write-Host "Engine upload done"
 

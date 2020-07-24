@@ -57,7 +57,7 @@ jobs:
           GCP_ENGINE_BUILD_AGENT_CREDENTIALS: ${{ secrets.GCP_ENGINE_BUILD_AGENT_CREDENTIALS }}
 
       - name: Upload engine as engine-${{ github.sha }}-win64
-        run: .\UploadUE4\UploadUE4.ps1 -BuildId ${{ github.sha }}
+        run: .\UploadUE4\UploadUE4.ps1 -CloudStoragebucket ${{ secrets.ENGINE_STORAGE_BUCKET_NAME }} -BuildId ${{ github.sha }}
 
       - name: Upload build logs
         if: ${{ always() }}
