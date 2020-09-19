@@ -27,6 +27,10 @@ A clean build takes about 2 hours on an `n1-standard-32` machine. This includes 
 
 See [the issues list](https://github.com/falldamagestudio/UE4-GHA-Engine/issues) to get a feeling for the project status and what is missing.
 
+## Repository name constraints
+
+If you clone this to your own repository, you must pick a short name. GitHub Actions will attempt to build UE4 from `C:\A\_work\<reponame>\<reponame>\UE4` on the runner machine - and this path must be less than 50 characters long.
+
 # License
 
 Getting access to the actual UE4 source code via GitHub requires you to [sign an EULA with Epic Games](https://www.unrealengine.com/en-US/ue4-on-github).
